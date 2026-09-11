@@ -29,11 +29,12 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install buildozer setuptools "cython==0.29.34"
+      - name: Accept Android SDK licenses
+        run: |
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
       - name: Build APK
-        run: run: |
-  set -o pipefail
-  yes | buildozer -v android debug
+        run: buildozer -v android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
